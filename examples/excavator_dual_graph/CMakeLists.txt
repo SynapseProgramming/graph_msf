@@ -47,11 +47,28 @@ add_library(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
         ${catkin_LIBRARIES})
 
+
+
+# Library
+add_library(bot_dual_graph
+        src/lib/BotEstimator.cpp
+        src/lib/BotStaticTransforms.cpp
+        )
+target_link_libraries(bot_dual_graph
+        ${catkin_LIBRARIES})
+
 # Executable
 add_executable(${PROJECT_NAME}_node src/dual_graph_node.cpp)
 target_link_libraries(${PROJECT_NAME}_node ${PROJECT_NAME})
 
 add_dependencies(${PROJECT_NAME}
+        ${catkin_EXPORTED_TARGETS})
+
+
+add_executable(bot_dual_graph_node src/bot_dual_graph_node.cpp)
+target_link_libraries(bot_dual_graph_node bot_dual_graph)
+
+add_dependencies(bot_dual_graph_node
         ${catkin_EXPORTED_TARGETS})
 
 # Add clang tooling
@@ -79,6 +96,20 @@ install(TARGETS ${PROJECT_NAME}
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
 )
+
+
+
+install(TARGETS bot_dual_graph
+  bot_dual_graph_node
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY include/bot_dual_graph/
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+
 
 ## Mark cpp header files for installation
 install(DIRECTORY config launch rviz
