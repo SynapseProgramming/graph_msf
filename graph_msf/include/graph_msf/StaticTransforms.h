@@ -53,7 +53,7 @@ class StaticTransforms {
   // Functionality
   virtual void findTransformations() = 0;
 
- protected:
+ public:
   // General container class
   std::map<std::pair<std::string, std::string>, Eigen::Matrix4d> T_frame1_frame2_map_;
 
