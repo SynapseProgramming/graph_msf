@@ -31,7 +31,6 @@ T tryGetParam(const std::string& key, const ros::NodeHandle& privateNode) {
 
 BotEstimator::BotEstimator(std::shared_ptr<ros::NodeHandle> privateNodePtr)
     : privateNode_(*privateNodePtr) {
-  // TODO: update graph config pointer with rosparams
   graphConfigPtr_ = std::make_shared<graph_msf::GraphConfig>();
   staticTransformsPtr_ = std::make_shared<BotStaticTransforms>(privateNodePtr);
 
@@ -39,19 +38,9 @@ BotEstimator::BotEstimator(std::shared_ptr<ros::NodeHandle> privateNodePtr)
   readParams_(privateNode_);
   staticTransformsPtr_->findTransformations();
 
-  // // print out the transformation matrix from base_footprint to lidar
-  // std::cout
-  //     << YELLOW_START << "BotEstimator" << COLOR_END
-  //     << " Transformation from base_footprint to lidar: "
-  //     << dynamic_cast<BotStaticTransforms*>(staticTransformsPtr_.get())
-  //            ->T_frame1_frame2_map_[std::make_pair("base_footprint",
-  //            "lidar")] .matrix()
-  //     << std::endl;
 }
 
 void BotEstimator::readParams_(const ros::NodeHandle& privateNode) {
-  // TODO: add in dynamically reconfigurable parameters
-  //  for now, they are hard-coded.
   // Variables for parameter fetching
   double dParam;
   int iParam;

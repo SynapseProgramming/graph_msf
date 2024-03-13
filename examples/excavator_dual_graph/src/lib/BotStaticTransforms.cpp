@@ -56,10 +56,6 @@ void BotStaticTransforms::findTransformations() {
   // I_Lidar
   graph_msf::tfToMatrix4(tf::Transform(transform),
                          lv_T_frame1_frame2(imuFrame_, lidarFrame_));
-  std::cout << YELLOW_START << "LidarTranslation" << COLOR_END
-            << " Translation I_Lidar: "
-            << rv_T_frame1_frame2(imuFrame_, lidarFrame_).block<3, 1>(0, 3)
-            << std::endl;
   // Lidar_I is the inverse transformation
   lv_T_frame1_frame2(lidarFrame_, imuFrame_) =
       rv_T_frame1_frame2(imuFrame_, lidarFrame_).inverse();
