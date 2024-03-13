@@ -16,6 +16,15 @@ Please see the LICENSE file that has been included as part of this package.
 
 namespace graph_msf {
 
+/**
+ * @brief Adds a pose to the given path message.
+ * 
+ * @param pathPtr The pointer to the path message.
+ * @param frameName The name of the frame.
+ * @param stamp The timestamp of the pose.
+ * @param t The translation vector of the pose.
+ * @param maxBufferLength The maximum buffer length of the path message.
+ */
 void GraphMsfRos::addToPathMsg(nav_msgs::PathPtr pathPtr, const std::string& frameName, const ros::Time& stamp, const Eigen::Vector3d& t,
                                const int maxBufferLength) {
   geometry_msgs::PoseStamped pose;
@@ -32,6 +41,20 @@ void GraphMsfRos::addToPathMsg(nav_msgs::PathPtr pathPtr, const std::string& fra
   }
 }
 
+/**
+ * @brief Adds odometry information to the given Odometry message.
+ * 
+ * This function adds odometry information to the provided Odometry message. It takes the fixed frame, moving frame,
+ * timestamp, transformation matrix, linear velocity in the fixed frame, and angular velocity in the fixed frame as inputs.
+ * 
+ * @param msgPtr A pointer to the Odometry message to which the odometry information will be added.
+ * @param fixedFrame The name of the fixed frame.
+ * @param movingFrame The name of the moving frame.
+ * @param stamp The timestamp of the odometry information.
+ * @param T The transformation matrix representing the pose change between the fixed frame and the moving frame.
+ * @param W_v_W_F The linear velocity of the moving frame in the fixed frame.
+ * @param W_w_W_F The angular velocity of the moving frame in the fixed frame.
+ */
 void GraphMsfRos::addToOdometryMsg(nav_msgs::OdometryPtr msgPtr, const std::string& fixedFrame, const std::string& movingFrame,
                                    const ros::Time& stamp, const Eigen::Matrix4d& T, const Eigen::Vector3d& W_v_W_F,
                                    const Eigen::Vector3d& W_w_W_F) {
